@@ -29,15 +29,16 @@ Tiffin is a web application that connects users with local messes and tiffin ser
 
 ---
 
-TiffinProject/        # Root folder
+Tiffin-service/        # Root folder
 │── frontend/         # React Frontend
 │   ├── src/         # Source code (React components, pages, etc.)
 │   │   ├── assets/   # Images, logos, and other static assets
 │   │   ├── components/ # Reusable UI components
 │   │   ├── pages/    # Page components (Home, Login, etc.)
-│   │   ├── hooks/    # Custom React hooks
-│   │   ├── context/  # React Context API for state management
-│   ├── public/       # Public assets (index.html, favicon, etc.)
+│   │   ├── services/  #Api endpoint for login and signup (user and owner
+│   │   ├── styles/    # Styling for every page components.
+│   ├── public/       # Public assets (images)
+│   ├── index.html       # Main html file
 │   ├── package.json  # Dependencies and scripts
 │   ├── .env          # Environment variables (API URLs, etc.)
 │   ├── .gitignore    # Ignore unnecessary frontend files
@@ -46,7 +47,9 @@ TiffinProject/        # Root folder
 │   ├── src/          # Backend source code
 │   │   ├── main/     # Main application logic
 │   │   │   ├── java/com/tiffin/api/  # Java package structure
-│   │   │   │   ├── controllers/  # API Controllers
+│   │   │   │   ├── config/  # SecurityConfig
+│   │   │   │   ├── controller/  # API Controllers
+│   │   │   │   ├── entity/  # entity for eachdatabase tables 
 │   │   │   │   ├── services/     # Business logic
 │   │   │   │   ├── repositories/ # Database queries
 │   │   │   │   ├── models/       # Data Models (Entities)
