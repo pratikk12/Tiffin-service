@@ -10,3 +10,21 @@ Tiffin is a web application that connects users with local messes and tiffin ser
 - 🍽 **Order Management** (Users can browse and order tiffins)
 - 💳 **Payment Integration** (Coming soon)
 - 📍 **Location-based Service** (Find mess services nearby)
+
+---
+
+## 🏗 Tech Stack
+### **Frontend** (React)
+- React.js
+- React Router
+- Axios (for API calls)
+- Tailwind CSS (for styling)
+
+### **Backend** (Spring Boot)
+- Spring Boot (REST API)
+- Spring Security (Authentication & Authorization)
+- MySQL (Database)
+- JPA/Hibernate (ORM)
+- Swagger (API Documentation)
+
+---
