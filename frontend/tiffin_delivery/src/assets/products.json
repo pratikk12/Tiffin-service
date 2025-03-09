@@ -1,0 +1,37 @@
+[
+    {
+        "title": "Mane Mess",
+        "id": 1,
+        "image": "images/mane_mess.jpg"
+    },
+    {
+        "title": "Chaudhary Mess",
+        "id": 2,
+        "image": "images/chaudhary_mess.jpg"
+    },
+    {
+        "title": "Kadam Mess",
+        "id": 3,
+        "image": "images/Pratik_Mess.jpg"
+    },
+    {
+        "title": "Pune Mess",
+        "id": 4,
+        "image": "images/Pune_Mess.avif"
+    },
+    {
+        "title": "Om Mess",
+        "id": 5,
+        "image": "images/om_mess.jpg"
+    },
+    {
+        "title": "Deppa's Mess",
+        "id": 6,
+        "image": "images/Deppa's_Mess.avif"
+    },
+    {
+        "title": "Pratik Mess",
+        "id": 7,
+        "image": "images/Pratik_Mess.jpg"
+    }
+]

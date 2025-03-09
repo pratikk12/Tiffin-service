@@ -1,0 +1,66 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+.container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.register {
+  display: flex;
+  flex-direction: column;
+}
+
+.register input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.register input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.register-btn,
+.mess-login-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.register-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.register-btn:hover {
+  background-color: #0056b3;
+}
+
+.mess-login-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.mess-login-btn:hover {
+  background-color: #1e7e34;
+}
