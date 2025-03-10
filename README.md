@@ -49,10 +49,11 @@ Tiffin-service/        # Root folder
 │   │   │   ├── java/com/tiffin/api/  # Java package structure
 │   │   │   │   ├── config/  # SecurityConfig
 │   │   │   │   ├── controller/  # API Controllers
-│   │   │   │   ├── entity/  # entity for eachdatabase tables 
-│   │   │   │   ├── services/     # Business logic
+│   │   │   │   ├── entity/  # entity for each database tables 
+│   │   │   │   ├── service/     # Business logic
+│   │   │   │   ├── serviceImpl/     # Business Implimentation
 │   │   │   │   ├── repositories/ # Database queries
-│   │   │   │   ├── models/       # Data Models (Entities)
+│   │   │   │   
 │   │   ├── resources/  # Configuration files
 │   │   │   ├── application.properties  # Spring Boot configuration
 │   ├── pom.xml       # Maven dependencies
@@ -60,4 +61,24 @@ Tiffin-service/        # Root folder
 │
 │── README.md         # Project Overview and Documentation
 │── .gitignore        # Ignore unnecessary global files
+
+
+---
+
+## 🔧 Installation & Setup
+### **1️⃣ Clone the Repository**
+```bash
+git clone https://github.com/yourusername/Tiffin.git
+cd Tiffin
+
+cd frontend
+npm install
+npm start(Create reac app)/ npm run dev(react vite)
+App runs on: http://localhost:3000 (CRA)/ http://localhost:5173 (react vite)
+
+cd backend
+mvn spring-boot:run
+API runs on: http://localhost:8080
+
+
 
