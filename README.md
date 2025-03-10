@@ -68,7 +68,7 @@ Tiffin-service/        # Root folder
 ## 🔧 Installation & Setup
 ### **1️⃣ Clone the Repository**
 ```bash
-git clone https://github.com/yourusername/Tiffin.git
+git clone https://github.com/yourusername/Tiffin-service.git
 cd Tiffin
 
 cd frontend
