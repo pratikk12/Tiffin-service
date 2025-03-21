@@ -1,0 +1,175 @@
+use tiffin_db;
+show tables;
+select * from users;
+CREATE TABLE MessOwner (
+    mess_id INT PRIMARY KEY AUTO_INCREMENT,
+    owner_id INT NOT NULL,  -- FK from Users (MessOwner)
+    name VARCHAR(100) NOT NULL,
+    address TEXT NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    contact VARCHAR(15) NOT NULL,
+    Description TEXT,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (owner_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+CREATE TABLE TiffinPlans (
+    plan_id INT PRIMARY KEY AUTO_INCREMENT,  -- Unique identifier for the tiffin plan
+    mess_id INT NOT NULL,  -- Foreign key from MessOwner
+    name VARCHAR(100) NOT NULL,  -- Name of the tiffin plan
+    description TEXT,  -- Description of the meal
+    price DECIMAL(10,2) NOT NULL,  -- Price per tiffin plan
+    meal_type ENUM('Veg', 'Non-Veg', 'Both') NOT NULL,  -- Type of meal
+    availability ENUM('Daily', 'Weekly', 'Monthly') NOT NULL,  -- Availability type
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Timestamp when the plan was created
+    FOREIGN KEY (mess_id) REFERENCES MessOwner(mess_id) ON DELETE CASCADE  -- Links plan to MessOwner
+);
+
+CREATE TABLE Orders (
+    order_id INT PRIMARY KEY AUTO_INCREMENT,  -- Unique identifier for each order
+    user_id INT NOT NULL,  -- Foreign key from Users
+    mess_id INT NOT NULL,  -- Foreign key from MessOwner
+    plan_id INT NOT NULL,  -- Foreign key from TiffinPlans
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Timestamp for order placement
+    delivery_address TEXT NOT NULL,  -- Address for delivery
+    total_amount DECIMAL(10,2) NOT NULL,  -- Total cost of the order
+    status ENUM('Pending', 'Confirmed', 'Delivered', 'Cancelled') DEFAULT 'Pending',  -- Order status
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (mess_id) REFERENCES MessOwner(mess_id) ON DELETE CASCADE,
+    FOREIGN KEY (plan_id) REFERENCES TiffinPlans(plan_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE Payments (
+    payment_id INT PRIMARY KEY AUTO_INCREMENT,  -- Unique ID for the payment
+    order_id INT NOT NULL,  -- Foreign key from Orders
+    user_id INT NOT NULL,  -- Foreign key from Users
+    amount DECIMAL(10,2) NOT NULL,  -- Payment amount
+    payment_method ENUM('UPI', 'Credit Card', 'Debit Card', 'Cash On Delivery') NOT NULL,  -- Payment method
+    payment_status ENUM('Pending', 'Completed', 'Failed') DEFAULT 'Pending',  -- Payment status
+    transaction_id VARCHAR(100) UNIQUE,  -- Unique transaction ID (optional for UPI, cards)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Timestamp when the payment was made
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE Delivery (
+    delivery_id INT PRIMARY KEY AUTO_INCREMENT,  -- Unique ID for each delivery
+    order_id INT NOT NULL,  -- Foreign key from Orders
+    delivery_person_id INT NOT NULL,  -- Foreign key from Users (Delivery Person)
+    status ENUM('Out for Delivery', 'Delivered', 'Failed') DEFAULT 'Out for Delivery',  -- Delivery status
+    delivered_at TIMESTAMP NULL,  -- Timestamp for successful delivery
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (delivery_person_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE Reviews (
+    review_id INT PRIMARY KEY AUTO_INCREMENT,  -- Unique ID for each review
+    user_id INT NOT NULL,  -- Foreign key from Users
+    mess_id INT NOT NULL,  -- Foreign key from MessOwner
+    rating INT CHECK (rating BETWEEN 1 AND 5),  -- Rating should be between 1 to 5
+    comment TEXT,  -- User's feedback
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Timestamp for review creation
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (mess_id) REFERENCES MessOwner(mess_id) ON DELETE CASCADE
+);
+desc users;
+desc Mess;
+alter table mess drop column name;
+desc orders;
+desc tiffinplans;
+desc delivery;
+desc delivery_person;
+desc payments;
+desc reviews;
+show tables;
+CREATE TABLE delivery_person (
+    delivery_person_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    username varchar(100) not null unique,
+    email varchar(100) not null unique,
+    phone_number VARCHAR(15) NOT NULL UNIQUE,
+    address text not null
+);
+
+alter table messowner add column mess_name varchar(100) not null unique;
+
+select * from mess;
+select * from users;
+ALTER TABLE mess_owner RENAME TO messowner;
+show tables;
+CREATE TABLE mess_owner (
+    owner_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    username varchar(233) unique not null,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    phone_number VARCHAR(20) UNIQUE NOT NULL,
+    address TEXT NOT NULL,
+    password varchar(233) not null
+);
+
+
+ALTER TABLE mess 
+DROP FOREIGN KEY mess_ibfk_1,  -- Remove old constraint
+DROP COLUMN owner_id,  -- Remove old column
+ADD COLUMN owner_id INT NOT NULL,  -- Add new owner_id column
+ADD CONSTRAINT fk_mess_owner FOREIGN KEY (owner_id) REFERENCES mess_owner(owner_id) ON DELETE CASCADE;
+
+SHOW CREATE TABLE mess;
+ALTER TABLE mess DROP FOREIGN KEY mess_ibfk_1;
+ALTER TABLE mess DROP COLUMN owner_id;
+ALTER TABLE mess ADD COLUMN owner_id INT NOT NULL;
+ALTER TABLE mess 
+ADD CONSTRAINT fk_messowner FOREIGN KEY (owner_id) REFERENCES messowner(owner_id) ON DELETE CASCADE;
+
+UPDATE mess SET owner_id = NULL WHERE owner_id NOT IN (SELECT owner_id FROM messowner);
+alter table messowner drop column owner_id;
+alter table mess drop column owner_id;
+ALTER TABLE messowner 
+ADD COLUMN owner_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY;	
+ALTER TABLE mess 
+ADD COLUMN owner_id INT NOT NULL;
+SELECT DISTINCT owner_id 
+FROM mess 
+WHERE owner_id NOT IN (SELECT owner_id FROM messowner);
+ALTER TABLE mess 
+ADD CONSTRAINT fk_messowner FOREIGN KEY (owner_id) 
+REFERENCES messowner(owner_id) ON DELETE CASCADE;
+select * from mess;
+TRUNCATE TABLE mess;
+SET FOREIGN_KEY_CHECKS = 0;
+truncate table mess;
+SET FOREIGN_KEY_CHECKS = 1;
+select * from mess;
+ALTER TABLE mess 
+ADD CONSTRAINT fk_messowner FOREIGN KEY (owner_id) 
+REFERENCES messowner(owner_id) ON DELETE CASCADE;
+
+desc messowner;
+desc mess;
+
+SHOW CREATE TABLE mess;
+SHOW CREATE TABLE messowner;
+INSERT INTO messowner (owner_id, name, username, email, password,phone_number, address) VALUES (1, 'John Doe', 'john1', 'john123@gmail.com', '1234', 1234567890, 'puune');
+select * from mess;
+select * from messowner;
+
+desc users;
+desc Mess;
+
+desc orders;
+desc tiffinplans;
+select * from tiffinplans;
+desc delivery;
+desc delivery_person;
+desc payments;
+desc reviews;
+show tables;
+alter table tiffinplans drop column availability;
+desc users;
+desc messowner;
+show tables;
+desc tiffinplans;
+select * from tiffinplans;
+
